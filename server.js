@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const db =  require('./db/db.json');
-
+const db = require('./db/db.json');
+const uuid = require('./helpers/uuid');
 // initiate express server
 const app = express();
 // set up server port
@@ -47,14 +47,14 @@ function createNewNote (body, notesArr) {
     notesArr.push(note);
     fs.writeFileSync(
         path.join(__dirname, './db/db.json'),
-        JSON.stringify({notes: notesArr}, null, 2)
+        JSON.stringify(notesArr, null, 2)
     );
     return note;
 }
 
 
 app.post('/api/notes', (req, res) => {
-    req.body.id = db.length.toString();
+    req.body.id = uuid();
     if (!validateNote(req.body)) {
         res.status(400).send('The note is not properly formatted');
     } else {

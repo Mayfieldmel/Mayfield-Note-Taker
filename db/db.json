@@ -1,13 +1,21 @@
-{
-  "notes": [
-    {
-      "title": "Test Title",
-      "text": "Test text"
-    },
-    {
-      "title": "Fix DB",
-      "text": "path = ('./db/db.json')",
-      "id": "1"
-    }
-  ]
-}
+[
+  {
+    "title": "Test Title",
+    "text": "Test text"
+  },
+  {
+    "title": "Fix DB",
+    "text": "path = ('./db/db.json')",
+    "id": "1"
+  },
+  {
+    "title": "Delete",
+    "text": "delete note by id",
+    "id": "2"
+  },
+  {
+    "title": "Add Note Working!",
+    "text": "The problem was the code I took from the modules turned the array into an object. ",
+    "id": "5d47"
+  }
+]
