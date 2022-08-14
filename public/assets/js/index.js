@@ -15,6 +15,11 @@ if (window.location.pathname === '/notes') {
 if (window.location.pathname === '/') {
   startBtn = document.getElementById("start");
 }
+
+const printResults = resultArr => {
+  console.log(resultArr);
+}
+
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
@@ -33,7 +38,17 @@ const getNotes = () =>
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-    },
+    }
+    .then(response => {
+      if (!response.ok) {
+        return alert('Error' + response.statusText)
+      }
+      return response.json();
+    })
+    .then(notes => {
+      console.log(notes);
+      printResults(notes);
+    })
   });
 
 const saveNote = (note) =>
@@ -184,7 +199,11 @@ if (window.location.pathname === '/notes') {
 }
 
 if (window.location.pathname === '/') { 
-  startBtn.addEventListener('click', () => window.location.pathname === '/notes' )
+  startBtn.addEventListener('click', () => {
+    window.location.pathname === '/notes';
+    getAndRenderNotes();
+  } );
+  
 }
 
 getAndRenderNotes();

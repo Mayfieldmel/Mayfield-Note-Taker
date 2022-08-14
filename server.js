@@ -27,9 +27,15 @@ app.get ('/', (req, res) => {
 })
 // notes page route
 app.get ('/notes', (req, res) => {
-    let results = db;
     res.sendFile(path.join(__dirname, './public/notes.html'));
-    console.log(results);
+    
+})
+
+// handle requests on the back-end
+//  get notes request
+app.get ('/api/notes', (req, res) => {
+    let results = db;
+    res.json(results);
 })
 
 
