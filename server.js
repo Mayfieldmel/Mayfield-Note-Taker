@@ -51,8 +51,8 @@ function createNewNote (body, notesArr) {
 
 app.post('/api/notes', (req, res) => {
     req.body.id = db.length.toString();
-    const notes = createNewNote(req.body, db);
-    res.json(notes);
+    const note = createNewNote(req.body, db);
+    res.json(note);
 })
 
 

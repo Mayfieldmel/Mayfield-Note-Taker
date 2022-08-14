@@ -6,7 +6,7 @@
     },
     {
       "title": "Fix DB",
-      "text": "'./db/db.json\"",
+      "text": "path = ('./db/db.json')",
       "id": "1"
     }
   ]
