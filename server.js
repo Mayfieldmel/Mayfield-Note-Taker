@@ -49,12 +49,26 @@ function createNewNote (body, notesArr) {
     return note;
 }
 
+
 app.post('/api/notes', (req, res) => {
     req.body.id = db.length.toString();
-    const note = createNewNote(req.body, db);
-    res.json(note);
+    if (!validateNote(req.body)) {
+        res.status(400).send('The note is not properly formatted');
+    } else {
+    const notes = createNewNote(req.body, db);
+    res.json(notes);
+    }
 })
 
+function validateNote(note) {
+    if (!note.title || typeof note.title !== 'string') {
+        return false;
+    }
+    if (!note.text || typeof note.text !== 'string') {
+        return false;
+    }
+    return true;
+}
 
 // set up server
 app.listen(PORT, () => {
