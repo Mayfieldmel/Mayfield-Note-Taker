@@ -12,6 +12,9 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
+if (window.location.pathname === '/') {
+  startBtn = document.getElementById("start");
+}
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
@@ -102,7 +105,7 @@ const handleNoteView = (e) => {
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+// Sets the activeNote to an empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
   renderActiveNote();
@@ -178,6 +181,10 @@ if (window.location.pathname === '/notes') {
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
+}
+
+if (window.location.pathname === '/') { 
+  startBtn.addEventListener('click', () => window.location.pathname === '/notes' )
 }
 
 getAndRenderNotes();
