@@ -38,6 +38,23 @@ app.get ('/api/notes', (req, res) => {
     res.json(results);
 })
 
+// create new note array & push new note to it
+function createNewNote (body, notesArr) {
+    const note = body;
+    notesArr.push(note);
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify({notes: notesArr}, null, 2)
+    );
+    return note;
+}
+
+app.post('/api/notes', (req, res) => {
+    req.body.id = db.length.toString();
+    const notes = createNewNote(req.body, db);
+    res.json(notes);
+})
+
 
 // set up server
 app.listen(PORT, () => {
