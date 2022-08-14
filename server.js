@@ -51,8 +51,17 @@ function createNewNote (body, notesArr) {
     );
     return note;
 }
-
-
+// Validate new note
+function validateNote(note) {
+    if (!note.title || typeof note.title !== 'string') {
+        return false;
+    }
+    if (!note.text || typeof note.text !== 'string') {
+        return false;
+    }
+    return true;
+}
+// post note request
 app.post('/api/notes', (req, res) => {
     req.body.id = uuid();
     if (!validateNote(req.body)) {
@@ -63,15 +72,11 @@ app.post('/api/notes', (req, res) => {
     }
 })
 
-function validateNote(note) {
-    if (!note.title || typeof note.title !== 'string') {
-        return false;
-    }
-    if (!note.text || typeof note.text !== 'string') {
-        return false;
-    }
-    return true;
-}
+// delete note request
+// app.get(`/api/notes/${id}`, req, res) => {
+
+// }
+
 
 // set up server
 app.listen(PORT, () => {
