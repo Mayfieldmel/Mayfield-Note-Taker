@@ -28,7 +28,10 @@ app.get ('/', (req, res) => {
 // notes page route
 app.get ('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
-    
+})
+// wildcard route back to homepage
+app.get ('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 })
 
 // handle requests on the back-end
