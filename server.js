@@ -73,9 +73,9 @@ app.post('/api/notes', (req, res) => {
 })
 
 // delete note request
-// app.get(`/api/notes/${id}`, req, res) => {
+app.delete(`/api/notes/:id`, (req, res) => {
 
-// }
+})
 
 
 // set up server
