@@ -16,10 +16,6 @@ if (window.location.pathname === '/') {
   startBtn = document.getElementById("start");
 }
 
-const printResults = resultArr => {
-  console.log(resultArr);
-}
-
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
@@ -36,21 +32,8 @@ let activeNote = {};
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-    .then(response => {
-      if (!response.ok) {
-        return alert('Error' + response.statusText)
-      }
-      return response.json();
-    })
-    .then(notes => {
-      console.log(notes);
-      printResults(notes);
-    })
-  });
-
+ })
+  
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -145,7 +128,6 @@ const handleRenderSaveBtn = () => {
   }
 };
 
-// Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes') {
@@ -210,10 +192,7 @@ if (window.location.pathname === '/notes') {
 }
 
 if (window.location.pathname === '/') { 
-  startBtn.addEventListener('click', () => {
-    window.location.pathname === '/notes';
-    getAndRenderNotes();
-  } 
+  startBtn.addEventListener('click', () => window.location.pathname === '/notes'
   );
   
 }

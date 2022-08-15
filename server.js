@@ -29,10 +29,7 @@ app.get ('/', (req, res) => {
 app.get ('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 })
-// wildcard route back to homepage
-app.get ('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-})
+
 
 // handle requests on the back-end
 //  get notes request
@@ -40,7 +37,6 @@ app.get ('/api/notes', (req, res) => {
     let results = db;
     res.json(results);
 })
-
 // create new note array & push new note to it
 function createNewNote (body, notesArr) {
     const note = body;
@@ -77,6 +73,10 @@ app.delete(`/api/notes/:id`, (req, res) => {
 
 })
 
+// wildcard route back to homepage
+app.get ('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+})
 
 // set up server
 app.listen(PORT, () => {

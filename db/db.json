@@ -17,5 +17,10 @@
     "title": "Add Note Working!",
     "text": "The problem was the code I took from the modules turned the array into an object. ",
     "id": "5d47"
+  },
+  {
+    "title": "Test Note",
+    "text": "testing note",
+    "id": "1a35"
   }
 ]
