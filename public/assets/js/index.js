@@ -49,17 +49,6 @@ const deleteNote = (id) =>
     headers: {
       'Content-Type': 'application/json',
     }
-    .then(response => {
-      if (!response.ok) {
-        const message = 'Error with Status Code: ' + response.status;
-        throw new Error(message);
-      }
-      const data = response.json();
-      console.log(data);
-    })
-    .catch(error => {
-      console.log('Error: ' + err);
-    })
   });
 
 const renderActiveNote = () => {
