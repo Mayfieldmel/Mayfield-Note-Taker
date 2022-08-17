@@ -1,22 +1,17 @@
 [
-  {
-    "title": "Test Title",
-    "text": "Test text",
-    "id": "0"
-  },
-  {
-    "title": "Fix DB",
-    "text": "path = ('./db/db.json')",
-    "id": "1"
-  },
-  {
-    "title": "Delete",
-    "text": "delete note by id",
-    "id": "2"
-  },
-  {
-    "title": "Add Note Working!",
-    "text": "The problem was the code I took from the modules turned the array into an object. ",
-    "id": "5d47"
-  }
+	{
+		"title": "Add Note Working!",
+		"text": "The problem was the code I took from the modules turned the array into an object. ",
+		"id": "5d47"
+	},
+	{
+		"title": "New Note",
+		"text": "testing",
+		"id": "1f90"
+	},
+	{
+		"title": "Delete",
+		"text": "test delete function",
+		"id": "78d5"
+	}
 ]

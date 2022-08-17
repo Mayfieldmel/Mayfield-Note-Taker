@@ -2,7 +2,8 @@
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
-const db = require("./db/db.json");
+const htmlRoutes = require('./routes/htmlRoutes');
+const apiRoutes = require('./routes/apiRoutes');
 const uuid = require("./helpers/uuid");
 
 // initiate express server
@@ -19,10 +20,6 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // routes
-// db route (json format)
-app.get("/db", (req, res) => {
-  res.json(db);
-});
 // homepage route
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
@@ -35,18 +32,18 @@ app.get("/notes", (req, res) => {
 // handle requests on the back-end
 //  get notes request
 app.get("/api/notes", (req, res) => {
-  let results = db;
-  res.json(results);
+  fs.readFile("./db/db.json", (err, data) => {
+    if (err) throw err;
+    const notesArr = JSON.parse(data);
+    res.json(notesArr);
+  })
 });
+
 // create new note array & push new note to it
 function createNewNote(body, notesArr) {
   const note = body;
   notesArr.push(note);
-  fs.writeFileSync(
-    path.join(__dirname, "./db/db.json"),
-    JSON.stringify(notesArr, null, 2)
-  );
-  return note;
+  return writeArray(notesArr);
 }
 // Validate new note
 function validateNote(note) {
@@ -64,37 +61,36 @@ app.post("/api/notes", (req, res) => {
   if (!validateNote(req.body)) {
     res.status(400).send("The note is not properly formatted");
   } else {
-    const notes = createNewNote(req.body, db);
-    res.json(notes);
+    fs.readFile('./db/db.json', (err, data) => {
+      if (err) throw err; 
+      const notesArr = JSON.parse(data);
+      const notes = createNewNote(req.body, notesArr);
+      res.json(notes);
+    })
   }
 });
 
 // find deleted item and remove it from db
-function deleteById(id, notesArr) {
-  // filter db by id
-  const result = notesArr.filter((note) => note.id === id)[0];
-  const newNotesArr = [];
-  const deleteArr = notesArr.map((item) => {
-    if (item.id !== result.id) {
-      newNotesArr.push(item)
-    } 
-  });
-  console.log(newNotesArr);
-  writeDeleteArray(newNotesArr)
+function deleteById(id) {
+  return fs.readFile("./db/db.json", (err, data) => {
+    if (err) throw err;
+    const notesArr = JSON.parse(data);
+     // filter db by id
+  const result = notesArr.filter((note) => note.id !== id);
+  writeArray(result)
+  return result;
+  })
 }
-
 // write new file w/ updated array to replace db
-function writeDeleteArray(newNotesArr) {
-fs.writeFile("./db/db.json", JSON.stringify(newNotesArr), "utf8", (err) => {
-    // if (err) throw err;
-    console.log("The file has been saved!");
-  
+function writeArray(newNotesArr) {
+fs.writeFile("./db/db.json", JSON.stringify(newNotesArr, null, "\t"), "utf8", (err) => {
+    if (err) throw err;
+    console.log("The file has been updated!");
   });
 }
-
 // delete note request
 app.delete("/api/notes/:id", (req, res) => {
-  const result = deleteById(req.params.id, db);
+  const result = deleteById(req.params.id);
   if (result) {
     res.json(result);
   } else {
@@ -106,6 +102,7 @@ app.delete("/api/notes/:id", (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
+
 
 // set up server
 app.listen(PORT, () => {
